@@ -542,12 +542,12 @@ class CharDataset(Dataset):
         y[len(ix)+1:] = -1 # index -1 will mask the loss at the inactive locations
         return x, y
 
-def create_datasets(input_file):
+def create_datasets(input_file, num_words=None):
 
     # preprocessing of the input text file
     with open(input_file, 'r') as f:
         data = f.read()
-    words = data.splitlines()
+    words = data.splitlines()[:num_words]
     words = [w.strip() for w in words] # get rid of any leading or trailing white space
     words = [w for w in words if w] # get rid of any empty strings
     chars = sorted(list(set(''.join(words)))) # all the possible characters
